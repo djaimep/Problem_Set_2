@@ -1,3 +1,4 @@
+#####Problem Set 2 - Grupo 6######
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 #%    Data Cleaning    		          %
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -125,9 +126,9 @@ test_individual <- test_individual %>% dplyr::rename(Edad = P6040)
 
 #Ahora se comprueba si la suma de los ingresos totales de los individuos del hogar es igual al del hogar como tal
 prueba <- train_individual %>%
-          group_by(id) %>%
-          summarise(ingresostothogar = sum(Ingtot, na.rm = T))
-                    
+  group_by(id) %>%
+  summarise(ingresostothogar = sum(Ingtot, na.rm = T))
+
 prueba2 <- left_join(prueba, train_hogares , by = "id") 
 prueba2 <- prueba2 %>% dplyr::select(id, Ingtotug, ingresostothogar)
 prueba2 <- prueba2 %>% mutate(Igual = Ingtotug == ingresostothogar)
@@ -139,7 +140,7 @@ prop.table(table(prueba2$Igual))
 #Ahora se verificará si los ingresos del jefe del hogar son la mayor proporción de los ingresos del hogar para verificar si es necesario introducir más variables
 #De los demás miembros del hogar
 IngresosJefeHogar <- train_individual %>% dplyr::select(id, Orden, P6050, Ingtot) %>%
-                    filter(P6050 == 1)
+  filter(P6050 == 1)
 prueba2 <- left_join(prueba2, IngresosJefeHogar , by = "id")
 prueba2$ProporcionIngresosJefe <- prueba2$Ingtot/prueba2$Ingtotug
 mean(prueba2$ProporcionIngresosJefe, na.rm = T)
@@ -152,9 +153,9 @@ TrainJefeHogar <- train_individual %>% filter(Orden == 1)
 
 #Solo estas variables
 TrainJefeHogar <- TrainJefeHogar %>% dplyr::select(id, Mujer, Edad, P6090, P6210, P6240, Oficio, P6426, P6430, P6510, P6545,
-                                P6580, P6585s1, P6585s2, P6585s3, P6585s4, P6590, P6600,  
-                                P6610, P6620, P6630s1, P6630s2, P6630s3, P6630s4, P6630s6,
-                                P6800, P6920, P7040, P7045, P7090, P7495, Pet, Oc, Des, Ina)
+                                                   P6580, P6585s1, P6585s2, P6585s3, P6585s4, P6590, P6600,  
+                                                   P6610, P6620, P6630s1, P6630s2, P6630s3, P6630s4, P6630s6,
+                                                   P6800, P6920, P7040, P7045, P7090, P7495, Pet, Oc, Des, Ina)
 #Cambiamos nombres
 TrainJefeHogar <- TrainJefeHogar %>% dplyr::rename(JefeMujer = Mujer, EdadJefe = Edad, SSJefe = P6090, EducacionJefe = P6210, ActividadJefe = P6240, OfJefe = Oficio, 
                                                    TiempoEmpresaJefe = P6426, TipoTrabajoJefe = P6430,  JefeHorasExtras = P6510, JefePrimas = P6545,
@@ -173,18 +174,18 @@ testJefeHogar <- test_individual %>% filter(Orden == 1)
 
 #Solo estas variables
 testJefeHogar <- testJefeHogar %>% dplyr::select(id, Mujer, Edad, P6090, P6210, P6240, Oficio, P6426, P6430, P6510, P6545,
-                                                   P6580, P6585s1, P6585s2, P6585s3, P6585s4, P6590, P6600,  
-                                                   P6610, P6620, P6630s1, P6630s2, P6630s3, P6630s4, P6630s6,
-                                                   P6800, P6920, P7040, P7045, P7090, P7495, Pet, Oc, Des, Ina)
+                                                 P6580, P6585s1, P6585s2, P6585s3, P6585s4, P6590, P6600,  
+                                                 P6610, P6620, P6630s1, P6630s2, P6630s3, P6630s4, P6630s6,
+                                                 P6800, P6920, P7040, P7045, P7090, P7495, Pet, Oc, Des, Ina)
 #Cambiamos nombres
 testJefeHogar <- testJefeHogar %>% dplyr::rename(JefeMujer = Mujer, EdadJefe = Edad, SSJefe = P6090, EducacionJefe = P6210, ActividadJefe = P6240, OfJefe = Oficio, 
-                                                   TiempoEmpresaJefe = P6426, TipoTrabajoJefe = P6430,  JefeHorasExtras = P6510, JefePrimas = P6545,
-                                                   BonosJefe = P6580, SubAliJefe = P6585s1, SubTranJefe = P6585s2, SubFamiliarJefe = P6585s3, SubEducativo = P6585s4, 
-                                                   AlimentosJefe = P6590, ViviendaJefe = P6600, 
-                                                   TransporteJefe = P6610, EspecieJefe = P6620, PrmJefe= P6630s1, NavidadJefe = P6630s2, 
-                                                   VacacionesJefe = P6630s3, ViaticosJefe = P6630s4, BonosAnJefe = P6630s6,
-                                                   HorasTrabJefe = P6800, PensionJefe = P6920, SegundTrabajoJefe = P7040, horassecJefe =P7045, 
-                                                   QuiereMasHorasJefe = P7090, ArriendosPenJefe = P7495)
+                                                 TiempoEmpresaJefe = P6426, TipoTrabajoJefe = P6430,  JefeHorasExtras = P6510, JefePrimas = P6545,
+                                                 BonosJefe = P6580, SubAliJefe = P6585s1, SubTranJefe = P6585s2, SubFamiliarJefe = P6585s3, SubEducativo = P6585s4, 
+                                                 AlimentosJefe = P6590, ViviendaJefe = P6600, 
+                                                 TransporteJefe = P6610, EspecieJefe = P6620, PrmJefe= P6630s1, NavidadJefe = P6630s2, 
+                                                 VacacionesJefe = P6630s3, ViaticosJefe = P6630s4, BonosAnJefe = P6630s6,
+                                                 HorasTrabJefe = P6800, PensionJefe = P6920, SegundTrabajoJefe = P7040, horassecJefe =P7045, 
+                                                 QuiereMasHorasJefe = P7090, ArriendosPenJefe = P7495)
 
 #Se une con la base de hogares
 testDF <- left_join(test_hogares, testJefeHogar, by = "id")
@@ -468,8 +469,8 @@ for (var in categoricas) {
 }
 
 TrainDF_clean <- dummy_cols(TrainDF_clean, select_columns = categoricas,
-                remove_first_dummy = T,
-                remove_selected_columns = T)
+                            remove_first_dummy = T,
+                            remove_selected_columns = T)
 
 
 #Ahora en el set de Test
@@ -486,8 +487,8 @@ for (var in categoricas) {
 }
 
 testDF <- dummy_cols(testDF, select_columns = categoricas,
-                            remove_first_dummy = T,
-                            remove_selected_columns = T)
+                     remove_first_dummy = T,
+                     remove_selected_columns = T)
 
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -532,19 +533,20 @@ p_load(randomForest)
 
 set.seed(1948)
 trControl <- trainControl(method='repeatedcv', 
-                          number=5, 
+                          number=10, 
                           repeats=1,
                           allowParallel = TRUE,
-                          summaryFunction = multiClassSummary)
+                          summaryFunction = fiveStats)
 
 ModeloForestTodo <- train(
-                      as.factor(Pobre) ~ .,
-                      data = hogares_train_bal,
-                      method = "rf",
-                      trControl = trControl,
-                      maxnode = 5,
-                      metric = "Sens",
-                      ntree = 300)
+  as.factor(Pobre) ~ .,
+  data = hogares_train_bal,
+  method = "rf",
+  trControl = trControl,
+  maxnode = 5,
+  metric = "Sens",
+  ntree = 300)
+
 
 
 ModeloForestTodo
@@ -615,7 +617,7 @@ ctrl_def <- trainControl(method = "cv",
 #Logit
 set.seed(1234)
 mylogit_caret_def <- train(
-  Pobre ~ Clase + JefeMujer + OcupadoJefe + HorasTrabJefe + Nper + EducacionJefe_2 + EducacionJefe_3 + EducacionJefe_4 + EducacionJefe_5 +EducacionJefe_6 + TiempoEmpresaJefe + EdadJefe,
+  Pobre ~ Clase_2 + JefeMujer + OcupadoJefe + HorasTrabJefe + Nper + EducacionJefe_2 + EducacionJefe_3 + EducacionJefe_4 + EducacionJefe_5 +EducacionJefe_6 + TiempoEmpresaJefe + EdadJefe,
   data = training,
   method = "glm", #for logit
   trControl = ctrl_def,
@@ -634,7 +636,7 @@ ctrl_two <- trainControl(method = "cv",
 
 set.seed(1410)
 mylogit_caret_two <- train(
-  Pobre ~ Clase + JefeMujer + OcupadoJefe + HorasTrabJefe + Nper + EducacionJefe_2 + EducacionJefe_3 + EducacionJefe_4 + EducacionJefe_5 +EducacionJefe_6 + TiempoEmpresaJefe + EdadJefe,
+  Pobre ~ Clase_2 + JefeMujer + OcupadoJefe + HorasTrabJefe + Nper + EducacionJefe_2 + EducacionJefe_3 + EducacionJefe_4 + EducacionJefe_5 +EducacionJefe_6 + TiempoEmpresaJefe + EdadJefe,
   data = training,
   method = "glm", #for logit
   trControl = ctrl_two,
@@ -656,7 +658,7 @@ ctrl<- trainControl(method = "cv",
 #logit
 set.seed(18414)
 mylogit_caret <- train(
-  Pobre ~ Clase + JefeMujer + OcupadoJefe + HorasTrabJefe + Nper + EducacionJefe_2 + EducacionJefe_3 + EducacionJefe_4 + EducacionJefe_5 +EducacionJefe_6 + TiempoEmpresaJefe + EdadJefe,
+  Pobre ~ Clase_2 + JefeMujer + OcupadoJefe + HorasTrabJefe + Nper + EducacionJefe_2 + EducacionJefe_3 + EducacionJefe_4 + EducacionJefe_5 +EducacionJefe_6 + TiempoEmpresaJefe + EdadJefe,
   data = training,
   method = "glm", #for logit
   trControl = ctrl,
@@ -674,7 +676,7 @@ lambda_grid
 
 set.seed(58694)
 mylogit_lasso_acc <- train(
-  Pobre ~ Clase + JefeMujer + OcupadoJefe + HorasTrabJefe + Nper + EducacionJefe_2 + EducacionJefe_3 + EducacionJefe_4 + EducacionJefe_5 +EducacionJefe_6 + TiempoEmpresaJefe + EdadJefe,
+  Pobre ~ Clase_2 + JefeMujer + OcupadoJefe + HorasTrabJefe + Nper + EducacionJefe_2 + EducacionJefe_3 + EducacionJefe_4 + EducacionJefe_5 +EducacionJefe_6 + TiempoEmpresaJefe + EdadJefe,
   data = training,
   method = "glmnet",
   trControl = ctrl,
@@ -689,7 +691,7 @@ mylogit_lasso_acc
 
 set.seed(2452)
 mylogit_lasso_roc <- train(
-  Pobre ~ Clase + JefeMujer + OcupadoJefe + HorasTrabJefe + Nper + EducacionJefe_2 + EducacionJefe_3 + EducacionJefe_4 + EducacionJefe_5 +EducacionJefe_6 + TiempoEmpresaJefe + EdadJefe,
+  Pobre ~ Clase_2 + JefeMujer + OcupadoJefe + HorasTrabJefe + Nper + EducacionJefe_2 + EducacionJefe_3 + EducacionJefe_4 + EducacionJefe_5 +EducacionJefe_6 + TiempoEmpresaJefe + EdadJefe,
   data = training,
   method = "glmnet",
   trControl = ctrl,
@@ -704,7 +706,7 @@ mylogit_lasso_roc
 
 set.seed(1410)
 mylogit_caret_sens <- train(
-  Pobre ~ Clase + JefeMujer + OcupadoJefe + HorasTrabJefe + Nper + EducacionJefe_2 + EducacionJefe_3 + EducacionJefe_4 + EducacionJefe_5 +EducacionJefe_6 + TiempoEmpresaJefe + EdadJefe,
+  Pobre ~ Clase_2 + JefeMujer + OcupadoJefe + HorasTrabJefe + Nper + EducacionJefe_2 + EducacionJefe_3 + EducacionJefe_4 + EducacionJefe_5 +EducacionJefe_6 + TiempoEmpresaJefe + EdadJefe,
   data = training,
   method = "glmnet",
   trControl = ctrl,
@@ -764,7 +766,7 @@ table(upSampledTrain$Pobre)
 
 set.seed(1410)
 mylogit_lasso_upsample <- train(
-  Pobre ~ Clase + JefeMujer + OcupadoJefe + HorasTrabJefe + Nper + EducacionJefe_2 + EducacionJefe_3 + EducacionJefe_4 + EducacionJefe_5 +EducacionJefe_6 + TiempoEmpresaJefe + EdadJefe,
+  Pobre ~ Clase_2 + JefeMujer + OcupadoJefe + HorasTrabJefe + Nper + EducacionJefe_2 + EducacionJefe_3 + EducacionJefe_4 + EducacionJefe_5 +EducacionJefe_6 + TiempoEmpresaJefe + EdadJefe,
   data = upSampledTrain,
   method = "glmnet",
   trControl = ctrl,
@@ -791,7 +793,7 @@ table(downSampledTrain$Pobre)
 
 set.seed(1410)
 mylogit_lasso_downsample <- train(
-  Pobre ~ Clase + JefeMujer + OcupadoJefe + HorasTrabJefe + Nper + EducacionJefe_2 + EducacionJefe_3 + EducacionJefe_4 + EducacionJefe_5 +EducacionJefe_6 + TiempoEmpresaJefe + EdadJefe,
+  Pobre ~ Clase_2 + JefeMujer + OcupadoJefe + HorasTrabJefe + Nper + EducacionJefe_2 + EducacionJefe_3 + EducacionJefe_4 + EducacionJefe_5 +EducacionJefe_6 + TiempoEmpresaJefe + EdadJefe,
   data = downSampledTrain,
   method = "glmnet",
   trControl = ctrl,
@@ -805,8 +807,8 @@ mylogit_lasso_downsample
 ##0.69-0.65
 
 ##SMOTE
-require("smotefamily")
-predictors<-c("Clase", "JefeMujer", "OcupadoJefe", "HorasTrabJefe", "Nper", "EducacionJefe_2",  "EducacionJefe_3", "EducacionJefe_4", "EducacionJefe_5", "EducacionJefe_6", "TiempoEmpresaJefe", "EdadJefe")
+p_load(smotefamily)
+predictors<-c("Clase_2", "JefeMujer", "OcupadoJefe", "HorasTrabJefe", "Nper", "EducacionJefe_2",  "EducacionJefe_3", "EducacionJefe_4", "EducacionJefe_5", "EducacionJefe_6", "TiempoEmpresaJefe", "EdadJefe")
 
 head(training[predictors])
 smote_output = SMOTE(X = training[predictors],
@@ -815,18 +817,6 @@ oversampled_data = smote_output$data
 table(training$Pobre)
 table(oversampled_data$class)
 
-set.seed(1410)
-mylogit_lasso_smote<- train(
-  Pobre ~ Clase + JefeMujer + OcupadoJefe + HorasTrabJefe + Nper + EducacionJefe_2 + EducacionJefe_3 + EducacionJefe_4 + EducacionJefe_5 +EducacionJefe_6 + TiempoEmpresaJefe + EdadJefe,
-  data = oversampled_data,
-  method = "glmnet",
-  trControl = ctrl,
-  family = "binomial",
-  metric = "ROC",
-  tuneGrid = expand.grid(alpha = 0,lambda=lambda_grid),
-  preProcess = c("center", "scale")
-)
-mylogit_lasso_smote
 
 ##Se realizan las comparaciones
 testResults <- data.frame(Pobre = testing$Pobre)
@@ -845,9 +835,6 @@ testResults$lasso_upsample<- predict(mylogit_lasso_upsample,
 testResults$mylogit_lasso_downsample<- predict(mylogit_lasso_downsample,
                                                newdata = testing,
                                                type = "prob")[,1]
-testResults$mylogit_lasso_smote<- predict(mylogit_lasso_smote,
-                                          newdata = testing,
-                                          type = "prob")[,1]
 
 ##Evaluación en el test
 testResults<-testResults %>%
@@ -863,7 +850,7 @@ with(testResults,table(Pobre,lasso))
 with(testResults,table(Pobre,lasso_thresh))
 with(testResults,table(Pobre,lasso_upsample))
 with(testResults,table(Pobre,mylogit_lasso_downsample))
-with(testResults,table(Pobre,mylogit_lasso_smote))
+
 
 
 #%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -880,9 +867,9 @@ XTrainReg <- hogares_trainReg %>% dplyr::select(-Ingtotug)
 
 set.seed(1948)
 trControl1 <- trainControl(method='repeatedcv', 
-                          number=5, 
-                          repeats=1,
-                          allowParallel = TRUE)
+                           number=5, 
+                           repeats=1,
+                           allowParallel = TRUE)
 
 
 grid_default <- expand.grid(nrounds = c(250,500),
@@ -894,13 +881,14 @@ grid_default <- expand.grid(nrounds = c(250,500),
                             subsample = c(0.6))
 
 ModeloXGBoost <- train(
-              Ingtotug ~ .,
-              data = hogares_trainReg,
-              method = "xgbTree",
-              trControl = trControl1,
-              tuneGrid = grid_default)
+  Ingtotug ~ .,
+  data = hogares_trainReg,
+  method = "xgbTree",
+  trControl = trControl1,
+  tuneGrid = grid_default)
 
 
+plot(ModeloXGBoost)
 ModeloXGBoost
 varImp(ModeloXGBoost,scale=TRUE)
 
@@ -916,8 +904,241 @@ XTestXG$PobrePredict <- ifelse(XTestXG$YhatXG > XTestXG$Npersug*XTestXG$Lp, 0, 1
 confusionMatrix(table(YTest, XTestXG$PobrePredict))
 
 
-#------------------------------------------------------------------------------
+#---------------Lasso y Ridge-----------------------------------------------------
 
+#Seleccionamos la base y la modificamos. La variable dependiente sera Ingtotug
+#Se eliminan las variables que miden lo mismo 
+hogares_train_ing<- dplyr::select(hogares_train,-Ingpcug,-Pobre)
+hogares_test_ing <- dplyr::select(hogares_test, -id, -Dominio, -Depto, -OfJefe, -Ingpcug, -Pobre)
+
+#Se crean las variables de entrenamiento 
+YTrain_ing <- hogares_train_ing$Ingtotug
+XTrain_ing <- dplyr::select(hogares_train_ing,-Ingtotug)
+
+#Se crean las variables de test 
+YTest_ing<-hogares_test_ing$Ingtotug
+XTest_ing<-dplyr::select(hogares_test_ing,-Ingtotug)
+
+#Estimacion modelo OLS 
+modelo_OLS_ing<-lm(Ingtotug~ ., data = hogares_train_ing)
+summary(modelo_OLS_ing) #Adjuted R-squared 0.3113
+#Coeficientes del modelo OLS 
+mt_coeficientes_ing <- modelo_OLS_ing$coefficients %>%
+  enframe(name = "predictor", value = "coeficiente")
+
+mt_coeficientes_ing %>%
+  filter(predictor != "(Intercept)") %>%
+  ggplot(aes(x = predictor, y = coeficiente)) +
+  geom_col() +
+  labs(title = "Coeficientes del modelo OLS Ingreso") +
+  theme_bw() +
+  theme(axis.text.x = element_text(size = 5, angle = 45))
+#Predicciones y MSE 
+#Base de entrenamiento 
+pred_OLS_train_ing<- predict(modelo_OLS_ing, newdata = hogares_train_ing)
+OLS_training_mse_ing <- mean((pred_OLS_train_ing - YTrain_ing)^2)
+paste("Error (mse) de entrenamiento:",OLS_training_mse_ing)
+#Base de prueba 
+pred_OLS_test_ing <- predict(modelo_OLS_ing, newdata = hogares_test_ing)
+OLS_test_mse_ing<-mean((pred_OLS_test_ing - YTest_ing)^2)
+paste("Error (mse) de test:", OLS_test_mse_ing)
+
+#Regularizacion - Ridge 
+require(glmnet)
+
+#Se crean las matrices de entrenamiento y test 
+x_train_ridge_ing <- model.matrix(Ingtotug~., data =hogares_train_ing)[, -1]
+y_train_ridge_ing <- hogares_train_ing$Ingtotug
+
+x_test_ridge_ing <- model.matrix(Ingtotug~., data = hogares_test_ing)[, -1]
+y_test_ridge_ing <- hogares_test_ing$Ingtotug
+#Creacion de modelo
+#Para Ridge el alpha debe ser igual a 0 
+modelo_ridge_ing <- glmnet(
+  x           = x_test_ridge_ing,
+  y           = y_test_ridge_ing,
+  alpha       = 0,
+  nlambda     = 100,
+  standardize = TRUE
+)
+
+#Cambio de coeficientes en funcion de lambda 
+regularizacion_ridge_ing <- modelo_ridge_ing$beta %>% 
+  as.matrix() %>%
+  t() %>% 
+  as_tibble() %>%
+  mutate(lambda = modelo_ridge_ing$lambda)
+
+regularizacion_ridge_ing<- regularizacion_ridge_ing %>%
+  pivot_longer(
+    cols = !lambda, 
+    names_to = "predictor",
+    values_to = "coeficientes"
+  )
+
+regularizacion_ridge_ing %>%
+  ggplot(aes(x = lambda, y = coeficientes, color = predictor)) +
+  geom_line() +
+  scale_x_log10(
+    breaks = trans_breaks("log10", function(x) 10^x),
+    labels = trans_format("log10", math_format(10^.x))
+  ) +
+  labs(title = "Coeficientes del modelo en función de la regularización Ingreso") +
+  theme_bw() +
+  theme(legend.position = "none")
+
+#MSE en funcion de lambda
+set.seed(0711)
+cv_error_ridge_ing <- cv.glmnet(
+  x      = x_train_ridge_ing,
+  y      = y_train_ridge_ing,
+  alpha  = 0,
+  nfolds = 10,
+  type.measure = "mse",
+  standardize  = TRUE
+)
+
+plot(cv_error_ridge_ing)
+
+#Encontramos el lambda que minimiza MSE 
+paste("Mejor valor de lambda encontrado:", cv_error_ridge_ing$lambda.min)
+#Mayor lambda que no se aleja más de 1 desviacion estandar del minimo 
+paste("Mejor valor de lambda encontrado + 1 desviación estándar:", cv_error_ridge_ing$lambda.1se)
+
+#Estimamos modelo usando mejor valor lambda mas una desviacion estandar 
+modelo_lambda_ods_ing <- glmnet(
+  x           = x_train_ridge_ing,
+  y           = y_train_ridge_ing,
+  alpha       = 0,
+  lambda      = cv_error_ridge_ing$lambda.min,
+  standardize = TRUE
+)
+
+#Analisis de coeficientes 
+df_coeficientes_ridge <- coef(modelo_lambda_ods_ing) %>%
+  as.matrix() %>%
+  as_tibble(rownames = "predictor") %>%
+  rename(coeficiente = s0)
+
+df_coeficientes_ridge %>%
+  filter(predictor != "(Intercept)") %>%
+  ggplot(aes(x = predictor, y = coeficiente)) +
+  geom_col() +
+  labs(title = "Coeficientes del modelo Ridge") +
+  theme_bw() +
+  theme(axis.text.x = element_text(size = 6, angle = 45))
+#Predicciones Ridge Train 
+pred_ridge_train_ing <- predict(modelo_lambda_ods_ing, newx = x_train_ridge_ing)
+#MSE train 
+ridge_training_mse_ing <- mean((pred_ridge_train_ing - y_train_ridge_ing)^2)
+paste("Error (mse) de entrenamiento:", ridge_training_mse_ing)
+#Predicciones Ridge Test 
+pred_ridge_test_ing <- predict(modelo_lambda_ods_ing, newx = x_test_ridge_ing)
+#MSE test 
+test_mse_ridge_ing <- mean((pred_ridge_test_ing - y_test_ridge_ing)^2)
+paste("Error (mse) de test:", test_mse_ridge_ing)
+
+#Regularizacion - Lasso 
+#Matrices de entrenamiento y test
+x_train_lasso_ing <- model.matrix(Ingtotug~., data = hogares_train_ing)[, -1]
+y_train_lasso_ing <- hogares_train_ing$Ingtotug
+
+x_test_lasso_ing <- model.matrix(Ingtotug~., data = hogares_test_ing)[, -1]
+y_test_lasso_ing <- hogares_test_ing$Ingtotug
+
+#Creacion del modelo 
+modelo_ing_lasso <- glmnet(
+  x           = x_train_lasso_ing,
+  y           = y_train_lasso_ing,
+  alpha       = 1,
+  nlambda     = 100,
+  standardize = TRUE
+)
+
+#Coeficientes en funcion de lambda 
+regularizacion_lasso_ing <- modelo_ing_lasso$beta %>% 
+  as.matrix() %>%
+  t() %>% 
+  as_tibble() %>%
+  mutate(lambda = modelo_ing_lasso$lambda)
+
+regularizacion_lasso_ing <- regularizacion_lasso_ing %>%
+  pivot_longer(
+    cols = !lambda, 
+    names_to = "predictor",
+    values_to = "coeficientes"
+  )
+regularizacion_lasso_ing %>%
+  ggplot(aes(x = lambda, y = coeficientes, color = predictor)) +
+  geom_line() +
+  scale_x_log10(
+    breaks = trans_breaks("log10", function(x) 10^x),
+    labels = trans_format("log10", math_format(10^.x))
+  ) +
+  labs(title = "Coeficientes del modelo en función de la regularización Ingreso") +
+  theme_bw() +
+  theme(legend.position = "none")
+#MSE en funcion de lambda 
+set.seed(0711)
+cv_error_lasso_ing <- cv.glmnet(
+  x      = x_train_lasso_ing,
+  y      = y_train_lasso_ing,
+  alpha  = 1,
+  nfolds = 10,
+  type.measure = "mse",
+  standardize  = TRUE
+)
+
+plot(cv_error_lasso_ing)
+
+#Mejor lambda determinado 
+paste("Mejor valor de lambda encontrado:", cv_error_lasso_ing$lambda.min)
+
+#Mejor lambda a una desviacion estandar 
+paste("Mejor valor de lambda encontrado + 1 desviación estándar:", cv_error_lasso_ing$lambda.1se)
+
+#Estimacion de modelo con lambda optimo 
+modelo_op_lasso_ing <- glmnet(
+  x           = x_train_lasso_ing,
+  y           = y_train_lasso_ing,
+  alpha       = 1,
+  lambda      = cv_error_lasso_ing$lambda.min,
+  standardize = TRUE
+)
+
+#Coeficientes 
+df_coef_lasso_ing<- coef(modelo_op_lasso_ing) %>%
+  as.matrix() %>%
+  as_tibble(rownames = "predictor") %>%
+  rename(coeficiente = s0)
+
+df_coef_lasso_ing%>%
+  filter(predictor != "(Intercept)") %>%
+  ggplot(aes(x = predictor, y = coeficiente)) +
+  geom_col() +
+  labs(title = "Coeficientes del modelo Lasso") +
+  theme_bw() +
+  theme(axis.text.x = element_text(size = 6, angle = 45))
+
+df_coef_lasso_ing %>%
+  filter(
+    predictor != "(Intercept)",
+    coeficiente != 0
+  ) 
+
+#Predicciones Ridge Train 
+pred_lasso_train_ing <- predict(modelo_op_lasso_ing
+                                , newx = x_train_lasso_ing)
+#MSE train 
+lasso_training_mse_ing <- mean((pred_lasso_train_ing - y_train_lasso_ing)^2)
+paste("Error (mse) de entrenamiento:", lasso_training_mse_ing)
+#Predicciones Ridge Test 
+pred_lasso_test_ing <- predict(modelo_op_lasso_ing, newx = x_test_lasso_ing)
+#MSE test 
+lasso_test_mse_ing <- mean((pred_lasso_test_ing - y_test_lasso_ing)^2)
+paste("Error (mse) de test:", lasso_test_mse_ing)
+
+#-------------------------------------------------------------------------------
 
 ##Se busca cuál es el mejor subset 
 require("leaps")
@@ -965,6 +1186,227 @@ x <- finaldata$Ingtotugarr[finaldata$Ingtotugarr!=0]
 sk_x <- skewness(x)
 print(paste("El valor de skewness para los ingresos totales es", round(sk_x, 2)))
 ##El Skewness es de 5.6
+
+x <- log(finaldata$Ingtotugarr[!is.na(finaldata$Ingtotugarr)])
+x <- finaldata$Ingtotugarr[finaldata$Ingtotugarr!=0]
+sk_x <- skewness(x)
+print(paste("El valor de skewness para los ingresos totales es", round(sk_x, 2)))
+
+##Al realizar la distribución logarítmica el skewness es el mismo
+
+# Vamos a aplicar diferentes transformaciones y a visualizar como cambia el skewness
+# Encontrar lambda óptimo
+lambda <- boxcox(x, objective.name = "Log-Likelihood", 
+                 optimize = TRUE)$lambda
+box_cox_x <- boxcoxTransform(x, lambda)
+
+ing_totimputado <- data.frame("Ingresos totales" = x,
+                              "Logaritmo" = log(x),
+                              "Raiz cuadrada" = sqrt(x),
+                              "Inversa" = 1/x,
+                              "Box-Cox" = box_cox_x)
+
+
+
+# Observemos la distribución original
+p1 <- ggplot(ing_totimputado) +
+  geom_histogram(aes(x = Ingresos.totales, 
+                     fill = "Ingresos totales"), 
+                 alpha = 0.5, fill = "gray", bins = 30) +
+  geom_text(aes(x = Inf, y = Inf, hjust = 1, 
+                vjust = 1, 
+                label = paste("Skewness", round(sk_x, 2)))) +
+  theme_classic() +
+  labs(x = "Ingresos totales", y = "Cantidad") +
+  scale_x_continuous(labels = scales::dollar)
+
+sk_x2 <- skewness(ing_totimputado$Logaritmo)
+p2 <- ggplot(ing_totimputado) +
+  geom_histogram(aes(x = Logaritmo, 
+                     fill = "Logaritmo"), 
+                 alpha = 0.5, fill = "blue", bins = 30) +
+  geom_text(aes(x = Inf, y = Inf, hjust = 1, 
+                vjust = 1, 
+                label = paste("Skewness", round(sk_x2, 2)))) +
+  theme_classic() +
+  labs(x = "Log(Ingresos totales)", y = "Cantidad") 
+
+sk_x3 <- skewness(ing_totimputado$Raiz.cuadrada)
+p3 <- ggplot(ing_totimputado) +
+  geom_histogram(aes(x = Raiz.cuadrada, 
+                     fill = "Raíz cuadrada"), 
+                 alpha = 0.5, fill = "red", bins = 30) +
+  geom_text(aes(x = Inf, y = Inf, hjust = 1, 
+                vjust = 1, 
+                label = paste("Skewness", round(sk_x3, 2)))) +
+  theme_classic() +
+  labs(x = "Raiz cuadrada de Ingresos totales", y = "Cantidad") 
+
+sk_x4 <- skewness(ing_totimputado$Inversa)
+p4 <- ggplot(ing_totimputado) +
+  geom_histogram(aes(x = Inversa, 
+                     fill = "Inversa"), 
+                 alpha = 0.5, fill = "green", bins = 30) +
+  geom_text(aes(x = Inf, y = Inf, hjust = 1, 
+                vjust = 1, 
+                label = paste("Skewness", round(sk_x4, 2)))) +
+  theme_classic() +
+  labs(x = "1/(Ingresos totales)", y = "Cantidad")
+
+sk_x5 <- skewness(ing_totimputado$Box.Cox)
+p5 <- ggplot(ing_totimputado) +
+  geom_histogram(aes(x = Box.Cox, 
+                     fill = "Box-Cox"), 
+                 alpha = 0.5, fill = "purple", bins = 30) +
+  geom_text(aes(x = Inf, y = Inf, hjust = 1, 
+                vjust = 1, 
+                label = paste("Skewness", round(sk_x5, 2)))) +
+  theme_classic() +
+  labs(x = "Transformacion Box-Cox de Ingresos totales", 
+       y = "Cantidad")
+
+ggarrange(p1, p2, p3, p4, p5, nrow = 3, ncol = 2)
+
+##U otra opción es 
+
+(p1 | p2 | p3) /
+  (p4 | p5)
+
+##Se concluye que la variable dependiente con un menor skewness es con la distribución 
+
+
+##Para identificar los predictores que efectivamente van en el modelo y los que no se aplica Lasso
+##Se analizan las variables para identificar correlaciones y posibles problemas a la hora de
+##Utilizar modelos de regresión lineal 
+finaldatatrain <- sapply(finaldata, is.numeric)
+finaldatatrain <- na.omit(hogares_train)
+
+hogares_correlaciones <- finaldata %>%
+  correlate(method = "pearson") %>%
+  stretch(remove.dups = TRUE)
+
+correlaciones <- hogares_correlaciones %>% 
+  mutate(r_abs = abs(r)) %>% 
+  arrange(desc(r_abs)) %>%
+  mutate(r_abs = replace_na(r_abs, 0))
+
+sum(correlaciones$r_abs > 0.8)/nrow(correlaciones)
+
+##Creación del modelo
+
+modelo <- glm(Pobreza ~ ., data = hogares_train)
+summary(modelo)
+
+hogares_coeficientes <- modelo$coefficients %>%
+  enframe(name = "predictor", value = "coeficiente")
+
+hogares_coeficientes %>%
+  filter(predictor != "(Intercept)") %>%
+  ggplot(aes(x = predictor, y = coeficiente)) +
+  geom_col() +
+  labs(title = "Coeficientes del modelo OLS") +
+  theme_bw() +
+  theme(axis.text.x = element_text(size = 5, angle = 45))
+
+# Predicciones de entrenamiento
+predicciones_train <- predict(modelo, newdata = hogares_train)
+
+# 
+training_mse <- mean((predicciones_train - hogares_train$Pobre)^2)
+paste("Error (mse) de entrenamiento:", training_mse)
+
+# Predicciones de test
+predicciones_test <- predict(modelo, newdata = hogares_test)
+
+# MSE de test
+test_mse_ols <- mean((predicciones_test - hogares_test$Pobre)^2)
+paste("Error (mse) de test:", test_mse_ols)
+
+# Creación y entrenamiento del modelo
+# Para obtener un ajuste con regularización Ridge se indica argumento alpha=0.
+# Si no se especifica valor de lambda, se selecciona un rango automático.
+modelo <- glmnet(
+  x           = x_train,
+  y           = y_train,
+  alpha       = 0,
+  nlambda     = 100,
+  standardize = TRUE
+)
+
+regularizacion <- modelo$beta %>% 
+  as.matrix() %>%
+  t() %>% 
+  as_tibble() %>%
+  mutate(lambda = modelo$lambda)
+
+regularizacion <- regularizacion %>%
+  pivot_longer(
+    cols = !lambda, 
+    names_to = "predictor",
+    values_to = "coeficientes"
+  )
+
+regularizacion %>%
+  ggplot(aes(x = lambda, y = coeficientes, color = predictor)) +
+  geom_line() +
+  scale_x_log10(
+    breaks = trans_breaks("log10", function(x) 10^x),
+    labels = trans_format("log10", math_format(10^.x))
+  ) +
+  labs(title = "Coeficientes del modelo en función de la regularización") +
+  theme_bw() +
+  theme(legend.position = "none")
+
+# Evolución del error en función de lambda
+set.seed(123)
+cv_error <- cv.glmnet(
+  x      = x_train,
+  y      = y_train,
+  alpha  = 0,
+  nfolds = 10,
+  type.measure = "mse",
+  standardize  = TRUE
+)
+
+plot(cv_error)
+
+# Mejor valor lambda encontrado
+paste("Mejor valor de lambda encontrado:", cv_error$lambda.min)
+
+# Mayor valor de lambda con el que el test-error no se aleja más de 1sd del mínimo.
+paste("Mejor valor de lambda encontrado + 1 desviación estándar:", cv_error$lambda.1se)
+
+# Mejor modelo lambda óptimo + 1sd
+modelo <- glmnet(
+  x           = x_train,
+  y           = y_train,
+  alpha       = 0,
+  lambda      = cv_error$lambda.1se,
+  standardize = TRUE
+)
+
+# Coeficientes del modelo
+hogares_coeficientes <- coef(modelo) %>%
+  as.matrix() %>%
+  as_tibble(rownames = "predictor") %>%
+  rename(coeficiente = s0)
+
+hogares_coeficientes %>%
+  filter(predictor != "(Intercept)") %>%
+  ggplot(aes(x = predictor, y = coeficiente)) +
+  geom_col() +
+  labs(title = "Coeficientes del modelo Ridge") +
+  theme_bw() +
+  theme(axis.text.x = element_text(size = 6, angle = 45))
+
+# Predicciones de entrenamiento
+predicciones_train <- predict(modelo, newx = x_train)
+
+# MSE de entrenamiento
+training_mse <- mean((predicciones_train - y_train)^2)
+paste("Error (mse) de entrenamiento:", training_mse)
+
+
 
 x <- log(finaldata$Ingtotugarr[!is.na(finaldata$Ingtotugarr)])
 x <- finaldata$Ingtotugarr[finaldata$Ingtotugarr!=0]
